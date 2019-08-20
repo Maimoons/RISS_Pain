@@ -40,6 +40,17 @@ num_frames = 0
 
 
 ########################################################## Functions for step 1#######################################################
+
+#for counting number of frames
+def countFrames(path) :
+    global num_frames
+    #List all files in the directory and read points from text files one by one
+    for filePath in sorted(os.listdir(path)):
+        if filePath.endswith(".txt"):
+            num_frames += 1
+    return None
+
+
 # Read points from text files in directory
 # Reads for one sequnce video of one person
 def readPoints(path) :
@@ -338,7 +349,7 @@ def readImagesWarp(ImagePath,TxtPath,ImagePathW,TxtPathW):
             del img,point,imgNorm,pointNorm
             gc.collect()
     
-    if not Frames:
+    if not frames:
         frame_to_videos(ImagePathW,ImagePathW)
     del ImagePath,TxtPath
     gc.collect()
@@ -476,30 +487,33 @@ if __name__ == '__main__' :
    
 
      ##################################################Step1#########################################################################
-     if not test: 
-         print("Starting Step 1 \n")
-         allPoints = []
-         #Just reading Points and Images, now commented
-         for PeoplefilePath in sorted(os.listdir(path+'Images/')):
-            if PeoplefilePath != ".DS_Store":
-                for SeqfilePath in sorted(os.listdir(path+'Images/'+PeoplefilePath)):
-                    if SeqfilePath != ".DS_Store":
-                        TxtPath = path+'AAM_landmarks/'+PeoplefilePath+'/'+SeqfilePath
-                        # Read points for all images
+     print("Starting Step 1 \n")
+     allPoints = []
+     #Just reading Points and Images, now commented
+     for PeoplefilePath in sorted(os.listdir(path+'Images/')):
+        if PeoplefilePath != ".DS_Store":
+            for SeqfilePath in sorted(os.listdir(path+'Images/'+PeoplefilePath)):
+                if SeqfilePath != ".DS_Store":
+                    TxtPath = path+'AAM_landmarks/'+PeoplefilePath+'/'+SeqfilePath
+                    # Read points for all images
+                    if not test:
                         allPoints += readPoints(TxtPath)
-                        gc.collect()
-         np.save('allPoints',allPoints)
-         print("Step 1 done\n")
+                    else:
+                        countFrames(TxtPath)
+                    gc.collect()
+     np.save('allPoints',allPoints)
+     print("Step 1 done\n")
 
 
 
         ##################################################Step2#########################################################################
+    #skip step 2 if using pre computed face
+     if not test:
+        print("Starting Step 2 \n")
+        allPoints = np.load('allPoints.npy',mmap_mode='r').tolist()
+        pointsAvg = np.array([(0,0)]* ( len(allPoints[0]) + 8 ), np.float32())
 
-         print("Starting Step 2 \n")
-         allPoints = np.load('allPoints.npy',mmap_mode='r').tolist()
-         pointsAvg = np.array([(0,0)]* ( len(allPoints[0]) + 8 ), np.float32())
-
-         for PeoplefilePath in sorted(os.listdir(path+'Images/')):
+        for PeoplefilePath in sorted(os.listdir(path+'Images/')):
             if PeoplefilePath != ".DS_Store":
                 for SeqfilePath in sorted(os.listdir(path+'Images/'+PeoplefilePath)):
                     if SeqfilePath != ".DS_Store":
@@ -510,10 +524,8 @@ if __name__ == '__main__' :
 
                 gc.collect()
                 del imageNorm,pointNorm
-         np.save('AverageLandmarks',pointsAvg)
-         print("Step 2 done\n")
-
-
+        np.save('AverageLandmarks',pointsAvg)
+        print("Step 2 done\n")
 
 
 
