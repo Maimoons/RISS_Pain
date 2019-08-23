@@ -21,6 +21,9 @@ def test_loss_fn(net, ds, y=None):
   
   loss_tensor_MSE= loss_perLabel_div.sum(0)
   #Scaling the loss/epoch to original scale
+  if (global_dict["train_params"]["cuda"]):
+    loss_tensor_MSE = loss_tensor_MSE.cuda()
+
   loss_tensor_MSE = torch.mul(loss_tensor_MSE,global_dict['labels_dict']['w'])
   
   loss_MSE = torch.mean(loss_perLabel_sqr)
@@ -29,6 +32,9 @@ def test_loss_fn(net, ds, y=None):
   loss_tensor_MAE = torch.mul(loss_perLabel_abs,1.0/num_seq)
   loss_tensor_MAE= loss_tensor_MAE.sum(0)
   #Scaling the loss/epoch to original scale
+  if (global_dict["train_params"]["cuda"]):
+    loss_tensor_MAE = loss_tensor_MAE.cuda()
+    
   loss_tensor_MAE= torch.mul(loss_tensor_MAE,global_dict['labels_dict']['w'])
   loss_MAE = torch.mean(loss_perLabel_abs)
 

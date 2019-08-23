@@ -29,7 +29,7 @@ if __name__ == '__main__':
     test_fold_tensorArray_MAE = []
     pred_true_array = []
 
-    DATA_PATH =global_dict['TEST_DATA_PATH']
+    DATA_PATH =global_dict['TRAIN_DATA_PATH']
     test_dataset = PainDataset(root_dir=DATA_PATH,
                           channels=3,
                           timeDepth=120,

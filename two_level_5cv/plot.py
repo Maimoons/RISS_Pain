@@ -46,7 +46,7 @@ def plot_func(history,num_epochs,path):
 
   number = global_dict['labels_dict']['number']
   label = global_dict['labels_dict']['label']
-  print(separate_loss_train)
+  #print(separate_loss_train)
   for j in range(number):
     train = [i[j] for i in separate_loss_train]
     valid = [i[j] for i in separate_loss_val]
@@ -118,6 +118,7 @@ def plot_test(folds,test_fold,test_loss_tensor,path,min_param_idxArray,pred_true
   file.write("Test Error per fold VAS scaled"+str(test_loss_tensor)+"\n")
   file.write("Parameter idx per fold "+str(min_param_idxArray)+"\n")
   file.write("Average loss "+str(mean(test_fold))+"\n")
+  print(test_loss_tensor)
   test_loss_tensor = [sum(i) for i in zip(*test_loss_tensor)]
   test_loss_tensor = [i*1.0/folds for i in test_loss_tensor]
   file.write("Average loss per label: "+str(test_loss_tensor)+"\n")
