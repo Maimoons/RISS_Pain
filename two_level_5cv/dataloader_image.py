@@ -45,6 +45,7 @@ class PainDataset(Dataset):
         frames = torch.FloatTensor(len(frame_names), self.channels, self.xSize, self.ySize)
 
         for f in range(len(frame_names)):
+            #print(video_path + frame_names[f])
             frame = cv2.imread(video_path + frame_names[f])
             frame = torch.from_numpy(frame)
             # HWC to CHW
