@@ -170,8 +170,6 @@ def initialise_model(val_dataset,gs_idx,custom_dataloader):
     warm_start=False,
     train_split=predefined_split(val_dataset),
     device = torch.device((global_dict["train_params"]["device"])),
-    #iterator_train = custom_dataloader,
-    #iterator_valid = custom_dataloader,
   ) 
   net.initialize() 
   return net
@@ -201,7 +199,6 @@ if __name__ == '__main__':
                           turn='train',
                           files=global_dict["files"],labels_dict=global_dict["labels_dict"],test = test)
 
-    #custom_dataloader = DataLoader(dataset, batch_size=4,shuffle=False, collate_fn=my_collate, num_workers=4)
     custom_dataloader = DataLoader(dataset, batch_size=1)
     dataset_len = len(custom_dataloader)
     print("dataset length",dataset_len)
