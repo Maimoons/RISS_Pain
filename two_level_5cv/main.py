@@ -178,24 +178,6 @@ def initialise_model(val_dataset,gs_idx,custom_dataloader):
 
 
 
-
-
-
-
-#For parallel code for later
-def my_collate(batch):
-    print('custom collate')
-    data = [item[0] for item in batch]
-    target = [item[1] for item in batch]
-    target = torch.LongTensor(target)
-    return [data, target]
-
-
-
-
-
-
-
 if __name__ == '__main__':
     initialise_globalDict(False)
     global global_dict
@@ -375,7 +357,6 @@ if __name__ == '__main__':
 
       plot_test_onefold(worksheet,Ofold,folds,test_fold_array_MSE,test_fold_tensorArray_MSE,result_path,min_param_idxArray,pred_true_array,\
        labels_error_mse_array_perfold, "MSE")
-      #workbook.close()
      
     #the overall error per inetnsity over all 5 test folds
     labels_error_mae_array = list(map(lambda x_arr,i_arr: list(map(lambda x,i:x/(i),x_arr,i_arr)),labels_error_mae_array,distribution_count))
