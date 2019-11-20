@@ -38,8 +38,8 @@ class PainDataset(Dataset):
         w = self.labels_dict['w']
         video_name = self.video_paths[idx]
 
-        #if self.test:
-            #video_name = video_name.decode("utf-8")
+        if self.test:
+            video_name = video_name.decode("utf-8")
         video_path = self.root_dir + video_name + '/'
         
         #now this is a singular mp4 video
