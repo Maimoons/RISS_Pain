@@ -91,8 +91,7 @@ class EpochTimer(Callback):
 
         net.history.record('dur', time.time() - self.epoch_start_time_)
         valid_loss = net.history[:,'valid_loss']
-        #if (global_dict["train_val"]):
-            #print('len'+str(len(valid_loss)))
+        
      
         gs_idx = global_dict['gs_idx'] 
         MODEL_PATH_DIR = global_dict['MODEL_PATH_DIR'] 
