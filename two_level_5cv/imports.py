@@ -134,7 +134,7 @@ def initialise_globalDict(Test):
       "nonlinearity": 'tanh',
       "bias": True,
       "batch_first": True,
-      "dropout": [0.2,0.3],
+      "dropout": [0.3,0.5],
       "bidirectional": False,
       "lambda": [0.000001,0.000005],
       "gs_combo": []
