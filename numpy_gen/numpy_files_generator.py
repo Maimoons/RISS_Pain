@@ -2,7 +2,6 @@ import os
 import numpy as np
 
 
-#on git
 DATA_PATH = './data'
 aff = []
 opr = []
