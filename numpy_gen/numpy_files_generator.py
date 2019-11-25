@@ -1,7 +1,7 @@
 import os
 import numpy as np
 
-#on git
+#on git remove
 DATA_PATH = './data'
 aff = []
 opr = []
