@@ -114,18 +114,18 @@ def plot_func(history,num_epochs,path):
     plt.plot(X,train,color='blue',label=label[j]+" Train")
     plt.legend(loc=1)
     plt.savefig(path+"/MSELoss_train_"+label[j]+".png")
-    if not train_val:
-      plt.plot(X,valid,color='orange',label=label[j]+" Validate")
-      plt.legend(loc=1)
-      plt.savefig(path+"/MSELoss_trainval_"+label[j]+".png")
-      plt.close()
+    #if not train_val:
+    plt.plot(X,valid,color='orange',label=label[j]+" Validate")
+    plt.legend(loc=1)
+    plt.savefig(path+"/MSELoss_trainval_"+label[j]+".png")
+    plt.close()
 
-      plt.title("MSE Scaled Loss over the Epochs")
-      plt.ylabel('Scaled Loss')
-      plt.xlabel('Epochs')
-      plt.plot(X,valid,color='orange',label=label[j]+" Validate")
-      plt.legend(loc=1)
-      plt.savefig(path+"/MSELoss_val_"+label[j]+".png")
+    plt.title("MSE Scaled Loss over the Epochs")
+    plt.ylabel('Scaled Loss')
+    plt.xlabel('Epochs')
+    plt.plot(X,valid,color='orange',label=label[j]+" Validate")
+    plt.legend(loc=1)
+    plt.savefig(path+"/MSELoss_val_"+label[j]+".png")
     plt.close()
 
 
